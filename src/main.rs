@@ -6,16 +6,18 @@ struct Config {
     file_path: String,
 }
 
-fn parse_config(args: &Vec<String>) -> Config {
-    let query: String = args[1].clone();
-    let file_path: String = args[2].clone();
+impl Config {
+    fn new(args: &Vec<String>) -> Config {
+        let query: String = args[1].clone();
+        let file_path: String = args[2].clone();
 
-    Config { query, file_path }
+        Config { query, file_path }
+    }
 }
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let config: Config = parse_config(&args);
+    let config: Config = Config::new(&args);
 
     println!("The query is {}!", config.query);
     println!("The file path is {}!", config.file_path);
