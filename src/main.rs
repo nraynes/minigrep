@@ -1,6 +1,8 @@
 use std::env;
 use std::fs;
 use std::process;
+use std::error::Error;
+use minigrep::search;
 
 struct Config {
     query: String,
@@ -19,11 +21,14 @@ impl Config {
     }
 }
 
-fn run(config: Config) {
-    let contents: String = fs::read_to_string(config.file_path)
-        .expect("There was a problem reading the file!");
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    let contents: String = fs::read_to_string(config.file_path)?;
 
-    println!("The file has the contents:\n{contents}");
+    for line in search(&config.query, &contents) {
+        println!("{line}");
+    }
+
+    Ok(())
 }
 
 fn main() {
@@ -36,5 +41,8 @@ fn main() {
     println!("The query is {}!", config.query);
     println!("The file path is {}!", config.file_path);
 
-    run(config);
+    if let Err(e) = run(config) {
+        println!("Application error: {e}");
+        process::exit(1);
+    }
 }
