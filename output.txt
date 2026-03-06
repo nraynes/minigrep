@@ -1,0 +1,4 @@
+The query is to!
+The file path is poem.txt!
+Are you nobody, too?
+How dreary to be somebody!
