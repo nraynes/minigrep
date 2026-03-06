@@ -1,3 +1,20 @@
+//! # MiniGrep
+//! 
+//! `minigrep` is a lightweight version of the grep command line tool.
+//! This is just a Rust practice project.
+
+/// Searches a strings contents for lines that contain a query.
+/// 
+/// # Example:
+/// 
+/// ```
+/// let contents = "There is something afoot.
+/// I can feel it.
+/// Is someone there?";
+/// let matches = minigrep::search("there", &contents);
+/// 
+/// assert_eq!(vec!["Is someone there?"], matches);
+/// ```
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     contents
         .lines()
@@ -5,6 +22,18 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
         .collect()
 }
 
+/// Searches a strings contents for lines that contain a query and ignores case.
+/// 
+/// # Example:
+/// 
+/// ```
+/// let contents = "There is something afoot.
+/// I can feel it.
+/// Is someone there?";
+/// let matches = minigrep::search_case_insensitive("there", &contents);
+/// 
+/// assert_eq!(vec!["There is something afoot.", "Is someone there?"], matches);
+/// ```
 pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     contents
         .lines()
